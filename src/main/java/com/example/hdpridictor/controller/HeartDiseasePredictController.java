@@ -2,11 +2,10 @@ package com.example.hdpridictor.controller;
 
 import com.example.hdpridictor.dto.PredictionResultDto;
 import com.example.hdpridictor.dto.UserDataDto;
-import com.example.hdpridictor.service.PredictionService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.hdpridictor.service.impl.PredictionService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/predict")
@@ -19,7 +18,8 @@ public class HeartDiseasePredictController {
     }
 
     @PostMapping("")
-    public PredictionResultDto predict(@RequestBody UserDataDto userDataDto) {
-        return predictionService.predict(userDataDto);
+    public PredictionResultDto predict(@RequestBody UserDataDto userDataDto,
+                                       @RequestParam(name = "engine", defaultValue = "mock") String engine) {
+        return predictionService.predict(userDataDto, engine);
     }
 }
